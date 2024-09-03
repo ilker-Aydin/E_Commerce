@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<div class="container" style="width: 50%;">
+  {% for product in products %}
+  <div class="card" style="width: 18rem,; padding: 10px;">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" class="card-img-top" alt="">
+    {% else %}
+      <img src="{% static 'images/default/nofind.jpg' %}" class="card-img-top" alt="Default Image">
+      {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ product.name }}</h5>
+      <p class="card-text">DESCRIPTION: {{ product.describtion }}</p>
+      <a href="{%url 'DjangoEcommerce:product_details' product_id=product.id %}" class="btn btn-primary">Price: {{ product.price }}</a>
+      <a class="buy-now-button" href="{% url 'DjangoEcommerce:add_to_cart' product_id=product.id %}">Add to Cart</a>
+
+
+      
+      
+      
+      {%if product.username == user%}
+        <a href="{%url 'DjangoEcommerce:DeleteProduct' id=product_id%}" class="btn btn-danger">Delete</a>
+      
+      {%endif%}
+      
+      
+    </div>
+    {%if product.username == user%}
+  <a href="{%url 'DjangoEcommerce:DeleteProduct' id=product.id%}" class="btn btn-danger">Delete</a>
+  
+  
+
+  {%endif%}
+  </div>
+  
+  </div>
+  {% endfor %}
+
+{% endblock %}
+
+
+
+        
+    
+
+
